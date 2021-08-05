@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import bodyParser from 'body-parser';
 import PostRouter from './routes/posts.js';
 
 import dotenv from 'dotenv';
@@ -11,9 +10,13 @@ dotenv.config();
 var app=express();
 
 
-app.use(bodyParser.json({limit: "30mb",extended:true}))
-app.use(bodyParser.urlencoded({limit: "30mb",extended:true}))
+app.use(express.json({limit: "30mb",extended:true}))
+app.use(express.urlencoded({limit: "30mb",extended:true}))
 app.use(cors());
+
+app.get('/',(res,req)=>{
+  res.send('App is Running');
+})
 
 app.use('/posts',PostRouter);
 
